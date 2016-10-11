@@ -4,7 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.widget.EditText;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 import java.util.Locale;
 
 import androiddev.milnaa.com.milnaa.MyApplication;
@@ -53,6 +58,10 @@ public class Util {
 
     public static void DLog(String tag, String content) {
         Log.d(tag, content);
+    }
+
+    public static String getBaseApiUrl(){
+        return "https://www.milnaa.com/";
     }
 
     public static Bitmap doBlur(Bitmap sentBitmap, int radius) {
@@ -255,5 +264,45 @@ public class Util {
         bitmap.setPixels(pix, 0, w, 0, 0, w, h);
 
         return (bitmap);
+    }
+
+    public static String getHostIp() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface
+                    .getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> ipAddr = intf.getInetAddresses(); ipAddr
+                        .hasMoreElements();) {
+                    InetAddress inetAddress = ipAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        return inetAddress.getHostAddress();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+        } catch (Exception e) {
+        }
+        return "";
+    }
+
+    public static String getFromEditText(EditText editText, String defaultvalue) {
+        String ret = defaultvalue;
+        if (editText != null) {
+            try {
+                ret = editText.getText().toString();
+            } catch (Exception e) {
+
+            }
+        }
+        return ret;
+    }
+
+    public static String getValue(EditText editText) {
+        if (editText == null) return "";
+        if (editText.getText() != null) {
+            return editText.getText().toString();
+        } else {
+            return "";
+        }
     }
 }

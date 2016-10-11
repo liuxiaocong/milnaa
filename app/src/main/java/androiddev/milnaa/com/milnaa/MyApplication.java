@@ -7,9 +7,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.facebook.drawee.backends.pipeline.Fresco;
-
 import androiddev.milnaa.com.milnaa.common.Util;
+import androiddev.milnaa.com.milnaa.model.LoginResultModel;
+
+//import com.facebook.drawee.backends.pipeline.Fresco;
 
 /**
  * Created by LiuXiaocong on 8/15/2016.
@@ -22,6 +23,9 @@ public class MyApplication extends Application {
     private Toast mToast;
     private boolean mWeatherDataReady = false;
     private boolean mConfigDataReady = false;
+
+    private LoginResultModel mLoginResultModel;
+
 
     public static MyApplication getInstance() {
         return instance;
@@ -49,6 +53,14 @@ public class MyApplication extends Application {
 
     public boolean isConfigDataReady() {
         return mConfigDataReady;
+    }
+
+    public LoginResultModel getLoginResultModel() {
+        return mLoginResultModel;
+    }
+
+    public void setLoginResultModel(LoginResultModel loginResultModel) {
+        mLoginResultModel = loginResultModel;
     }
 
 
@@ -83,5 +95,6 @@ public class MyApplication extends Application {
         }
         return toast;
     }
+
 
 }
